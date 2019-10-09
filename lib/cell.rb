@@ -36,23 +36,8 @@ class Cell
       "H"
     elsif @ship && show == true
       "S"
-    else 
+    else
       "."
-
-
-
-
-
-      # if shot_at?
-      #   if @ship && show == true
-      #     "S"
-      #   end
-      #   # if empty?
-      #   #   "M"
-      # end
-
-    # elsif !shot_at? #&& empty? #still want dot when we start before showing ship
-    #     "."
     end
   end
 end

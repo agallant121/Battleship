@@ -56,6 +56,7 @@ class CellTest < Minitest::Test
   end
 
   def test_it_shows_a_ship
+    @cell_2.place_ship(@cruiser)
     assert_equal "S", @cell_2.render(true)
   end
 
