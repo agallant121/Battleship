@@ -55,9 +55,9 @@ class CellTest < Minitest::Test
     assert_equal ".", @cell_2.render
   end
 
-  # def test_it_shows_a_ship
-  #
-  # end
+  def test_it_shows_a_ship
+    assert_equal "S", @cell_2.render(true)
+  end
 
 
 

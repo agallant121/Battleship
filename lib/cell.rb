@@ -27,10 +27,11 @@ class Cell
     end
   end
 
-
-  def render
+  def render(show = false) #default gets rid of errors above in test
     if !shot_at? #&& empty? #still want dot when we start before showing ship
       "."
+    elsif @ship && show == true
+      "S"
     elsif shot_at? && empty?
       "M"
     end
