@@ -1,9 +1,9 @@
 class Cell
   attr_reader :coordinate, :ship
 
-  def initialize(coordinate)
+  def initialize(coordinate, ship = nil)
     @coordinate = coordinate
-    @ship = nil
+    @ship = ship
     @fired_upon = false
   end
 
@@ -15,14 +15,24 @@ class Cell
     @ship = ship
   end
 
-  def fired_upon?
+  def shot_at?
     @fired_upon
   end
 
   def fire_upon
-    if @fired_upon = true && !empty?
+    # return if @fired_upon #checking if it has been fired upon
+    @fired_upon = true
+    if !empty?
       @ship.hit
     end
   end
 
+
+  def render
+    if !shot_at? #&& empty? #still want dot when we start before showing ship
+      "."
+    elsif shot_at? && empty?
+      "M"
+    end
+  end
 end
