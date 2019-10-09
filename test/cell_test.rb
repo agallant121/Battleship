@@ -5,40 +5,82 @@ require_relative '../lib/cell'
 
 class CellTest < Minitest::Test
   def setup
-    @cell = Cell.new("B4")
+    @cell_1 = Cell.new("B4")
+    @cell_2 = Cell.new("C3")
     @cruiser = Ship.new("Cruiser", 3)
   end
 
   def test_it_exists
-    assert_instance_of Cell, @cell
+    assert_instance_of Cell, @cell_1
   end
 
   def test_initialize
-    assert_equal "B4", @cell.coordinate
+    assert_equal "B4", @cell_1.coordinate
   end
 
   def test_it_starts_with_no_ship
-    assert_nil @cell.ship
+    assert_nil @cell_1.ship
   end
 
   def test_it_is_empty
-    assert_equal true, @cell.empty?
+    assert_equal true, @cell_1.empty?
   end
 
   def test_it_can_be_placed
 
-    @cell.place_ship(@cruiser)
-    assert_equal @cruiser, @cell.ship
-    assert_equal false, @cell.empty?
+    @cell_1.place_ship(@cruiser)
+    assert_equal @cruiser, @cell_1.ship
+    assert_equal false, @cell_1.empty?
   end
 
   def test_it_can_be_fired_upon
-    @cell.place_ship(@cruiser)
-    assert_equal false, @cell.fired_upon?
-    @cell.fire_upon
-    assert_equal 2, @cell.ship.health
-    assert_equal true, @cell.fired_upon? #not done
+    @cell_1.place_ship(@cruiser)
+    assert_equal false, @cell_1.shot_at?
+    @cell_1.fire_upon
+    assert_equal 2, @cell_1.ship.health
+    assert_equal true, @cell_1.shot_at? #not done
+  end
 
+  def test_it_can_render_not_fired_upon
+    assert_equal ".", @cell_1.render
+  end
+
+  def test_it_can_render_a_miss
+    @cell_1.fire_upon
+    assert_equal "M", @cell_1.render
+  end
+
+  def test_it_renders_dot_before_ship_shown
+    @cell_2.place_ship(@cruiser)
+    assert_equal ".", @cell_2.render
+  end
+
+  def test_it_shows_a_ship
+    @cell_2.place_ship(@cruiser)
+    assert_equal "S", @cell_2.render(true)
+  end
+
+  def test_it_can_render_a_hit
+    @cell_2.place_ship(@cruiser)
+    @cell_2.fire_upon
+    assert_equal "H", @cell_2.render
+  end
+
+  def test_it_sunk
+    @cell_2.place_ship(@cruiser)
+    @cell_2.fire_upon
+    assert_equal false, @cruiser.sunk?
+    @cruiser.hit
+    @cruiser.hit
+    assert_equal true, @cruiser.sunk?
+  end
+
+  def test_it_can_render_sunk_ship
+    @cell_2.place_ship(@cruiser)
+    @cell_2.fire_upon
+    @cruiser.hit
+    @cruiser.hit
+    assert_equal "X", @cell_2.render
   end
 
 end
