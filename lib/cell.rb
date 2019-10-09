@@ -28,12 +28,31 @@ class Cell
   end
 
   def render(show = false) #default gets rid of errors above in test
-    if !shot_at? #&& empty? #still want dot when we start before showing ship
-      "."
+    if shot_at? && !@ship
+      "M"
+    elsif shot_at? && @ship.sunk?
+      "X"
+    elsif shot_at? && @ship
+      "H"
     elsif @ship && show == true
       "S"
-    elsif shot_at? && empty?
-      "M"
+    else 
+      "."
+
+
+
+
+
+      # if shot_at?
+      #   if @ship && show == true
+      #     "S"
+      #   end
+      #   # if empty?
+      #   #   "M"
+      # end
+
+    # elsif !shot_at? #&& empty? #still want dot when we start before showing ship
+    #     "."
     end
   end
 end
