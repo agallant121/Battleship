@@ -10,8 +10,20 @@ class Board
     @cells.include?(coordinate)
   end
 
-  def valid_placement?(ship, coordinate_array)
-    # is the ship's length equal to the number of coordinates in array
-    ship.length == coordinate_array.length
+  def same_letters?(coordinates)
+   coordinates.map do |coordinate|
+     coordinate[0]
+     # require'pry'; binding.pry
+   end.uniq.count == 1
+  end
+
+  def same_numbers?(coordinates)
+    coordinates.map do |coordinate|
+      coordinate[1]
+    end.uniq.count == 1
+  end
+
+  def valid_placement?(ship, coordinates)
+    ship.length == coordinates.length
   end
 end

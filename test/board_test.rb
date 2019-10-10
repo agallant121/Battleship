@@ -50,4 +50,13 @@ class BoardTest < Minitest::Test
     assert_equal false, @board.valid_placement?(@submarine, ["A2", "A3", "A4"])
   end
 
+  def test_all_letters_are_the_same
+    assert_equal true, @board.same_letters?(["A1", "A2", "A4"])
+    assert_equal false, @board.same_letters?(["B1", "A2", "C4"]) #sad path
+  end
+
+  def test_all_numbers_are_the_same
+    assert_equal true, @board.same_numbers?(["A1", "B1", "C1"])
+    assert_equal false, @board.same_numbers?(["A1", "A2", "A4"])
+  end
 end
