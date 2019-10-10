@@ -27,8 +27,8 @@ class Cell
     end
   end
 
-  def render(show = false) #default gets rid of errors above in test
-    if shot_at? && !@ship
+  def render(show = false) # default gets rid of errors above in test
+    if  shot_at? && !@ship
       "M"
     elsif shot_at? && @ship.sunk?
       "X"
