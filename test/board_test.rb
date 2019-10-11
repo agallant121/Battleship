@@ -59,4 +59,10 @@ class BoardTest < Minitest::Test
     assert_equal true, @board.same_numbers?(["A1", "B1", "C1"])
     assert_equal false, @board.same_numbers?(["A1", "A2", "A4"])
   end
+
+#code not real yet
+  def test_numbers_are_consecutive
+    assert_equal true, @board.consecutive_numbers_forward?(["A1", "A2", "A3"])
+  end
+
 end
