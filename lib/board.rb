@@ -23,11 +23,6 @@ class Board
     end.uniq.count == 1
   end
 
-  def valid_placement?(ship, coordinates)
-    ship.length == coordinates.length
-  end
-
-  #new code by you dont commit shit
   def consecutive_numbers_forward?(coordinates)
     # if same_letters?(coordinates) && !same_numbers?(coordinates)
       numbers = coordinates.map do |coordinate|
@@ -49,6 +44,18 @@ class Board
       letters.each_cons(3).all? do |lett1, lett2|
         lett2 == lett1 + 1
       end
+  end
+
+  def valid_columns?(coordinates)
+     same_numbers?(coordinates) && consecutive_letters_forward?(coordinates)
+  end
+
+  def valid_rows?(coordinates)
+    same_letters?(coordinates) && consecutive_numbers_forward?(coordinates)
+  end
+
+  def valid_placement?(ship, coordinates)
+    ship.length == coordinates.length
   end
 
 end

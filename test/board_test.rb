@@ -72,4 +72,20 @@ class BoardTest < Minitest::Test
     assert_equal false, @board.consecutive_letters_forward?(["A1", "C2", "D4"])
   end
 
+  def test_it_has_valid_columns
+    assert_equal true, @board.valid_columns?(["A1", "B1", "C1"])
+    assert_equal false, @board.valid_columns?(["A2", "B1", "C1"])
+  end
+
+  def test_it_has_valid_rows
+    assert_equal true, @board.valid_rows?(["A1", "A2", "A3"])
+    assert_equal false, @board.valid_rows?(["A1", "B2", "A3"])
+  end
+
+  def test_coordinates_cannot_be_diagonal
+    assert_equal false, @board.valid_rows?(["A1", "B2", "C3"])
+    assert_equal true, @board.valid_rows?(["A1", "A2", "A3"])
+    assert_equal true, @board.valid_columns?(["A1", "B1", "C1"])
+    assert_equal false, @board.valid_columns?(["C2", "D3"])
+  end
 end
