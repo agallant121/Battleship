@@ -31,20 +31,24 @@ class Board
   def consecutive_numbers_forward?(coordinates)
     # if same_letters?(coordinates) && !same_numbers?(coordinates)
       numbers = coordinates.map do |coordinate|
-        coordinate[1]
+        coordinate[1].to_i
       end
 
-      numbers.each_cons(3) do |num1, num2|
-        num1.to_i == (num2.to_i) - 1
+      numbers.each_cons(3).all? do |num1, num2|
+        num2 == num1 + 1
       end
   end
 
-  # def consecutive_numbers_backwards
-  #     if same_letters? && !same_numbers?
-  #       coordinates.map do |coordinate|
-  #         coordinate[1]
-  #         if (1..4).each_cons(3).reverse
-  #         end
-  #       end
-  #   end
+  def consecutive_letters_forward?(coordinates)
+    # if same_letters?(coordinates) && !same_numbers?(coordinates)
+      letters = coordinates.map do |coordinate|
+        # require 'pry'; binding.pry
+        coordinate[0].ord
+      end
+
+      letters.each_cons(3).all? do |lett1, lett2|
+        lett2 == lett1 + 1
+      end
+  end
+
 end

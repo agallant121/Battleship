@@ -63,6 +63,13 @@ class BoardTest < Minitest::Test
 #code not real yet
   def test_numbers_are_consecutive
     assert_equal true, @board.consecutive_numbers_forward?(["A1", "A2", "A3"])
+    assert_equal false, @board.consecutive_numbers_forward?(["A1", "A5", "A3"])
+
+  end
+
+  def test_letters_are_consecutive
+    assert_equal true, @board.consecutive_letters_forward?(["A1", "B2", "C4"])
+    assert_equal false, @board.consecutive_letters_forward?(["A1", "C2", "D4"])
   end
 
 end
