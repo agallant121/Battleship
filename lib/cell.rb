@@ -12,6 +12,7 @@ class Cell
   end
 
   def place_ship(ship)
+    return false if !empty?
     @ship = ship
   end
 
