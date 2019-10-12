@@ -13,7 +13,6 @@ class Board
   def same_letters?(coordinates)
    coordinates.map do |coordinate|
      coordinate[0]
-     # require'pry'; binding.pry
    end.uniq.count == 1
   end
 
@@ -24,7 +23,6 @@ class Board
   end
 
   def consecutive_numbers_forward?(coordinates)
-    # if same_letters?(coordinates) && !same_numbers?(coordinates)
       numbers = coordinates.map do |coordinate|
         coordinate[1].to_i
       end
@@ -35,12 +33,9 @@ class Board
   end
 
   def consecutive_letters_forward?(coordinates)
-    # if same_letters?(coordinates) && !same_numbers?(coordinates)
       letters = coordinates.map do |coordinate|
-        # require 'pry'; binding.pry
         coordinate[0].ord
       end
-
       letters.each_cons(3).all? do |lett1, lett2|
         lett2 == lett1 + 1
       end
@@ -55,7 +50,21 @@ class Board
   end
 
   def valid_placement?(ship, coordinates)
-    ship.length == coordinates.length
+    valid = coordinates.all? do |coordinate|
+      return false if @cells[coordinate].ship != nil
+      valid_coordinate?(coordinate)
+    end
+
+    valid && ship.length == coordinates.length
   end
 
+  def place(ship, coordinates)
+    if valid_placement?(ship, coordinates)
+      coordinates.map do |coordinate|
+        @cells[coordinate].place_ship(ship)
+      end
+    else
+      "Sorry Invalid Placement"
+    end
+  end
 end
