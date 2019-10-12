@@ -91,7 +91,7 @@ class BoardTest < Minitest::Test
     assert_equal false, @board.valid_columns?(["C2", "D3"])
   end
 
-  def test_board_can_place_ships
+  def test_it_can_place_ships
     @board.place(@cruiser, ["A1", "A2", "A3"])
     cell_1 = @board.cells["A1"]
     cell_2 = @board.cells["A2"]
@@ -108,6 +108,11 @@ class BoardTest < Minitest::Test
   def test_ships_cannot_overlap
     @board.place(@cruiser, ["A1", "A2", "A3"])
     assert_equal false, @board.valid_placement?(@submarine, ["A1", "B1"])
+  end
+
+  def test_it_can_render_itself
+    expected = "1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n"
+    assert_equal expected, @board.render(true)
   end
 
 end
