@@ -27,7 +27,7 @@ class Board
         coordinate[1].to_i
       end
 
-      numbers.each_cons(3).all? do |num1, num2|
+      numbers.each_cons(2).all? do |num1, num2|
         num2 == num1 + 1
       end
   end
@@ -36,7 +36,7 @@ class Board
       letters = coordinates.map do |coordinate|
         coordinate[0].ord
       end
-      letters.each_cons(3).all? do |lett1, lett2|
+      letters.each_cons(2).all? do |lett1, lett2|
         lett2 == lett1 + 1
       end
   end
