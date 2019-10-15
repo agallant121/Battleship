@@ -47,6 +47,11 @@ class Game
   end
 
   def start_game
+    x = @computer_board.cells.keys.sample(3)
+    loop do
+      x until @computer_board.valid_placement?(@cruiser, x)
+      break
+    end
     puts @player_board.render(show = true)
     puts ""
     puts "Please choose coordinates using letters and"
@@ -54,6 +59,7 @@ class Game
     puts "have chosen 3 coordinates for the cruiser, (ex. A1 A2 A3),"
     puts "press enter and repeat these steps for placing the submarine.
     "
+
     puts "Please enter the 3 coordinates for cruiser:"
           coord_input = gets.chomp.upcase
           coord_input = coord_input.split
@@ -64,9 +70,12 @@ class Game
               coord_input = coord_input.split
             if @player_board.valid_placement?(@submarine, coord_input)
                @player_board.place(@submarine, coord_input)
+               puts "Nice placement; or was it?!"
+               puts @player_board.render(show = true)
+
             end
         end
-  end
+      end
 end
 
 
