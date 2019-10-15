@@ -51,11 +51,19 @@ class Board
 
   def valid_placement?(ship, coordinates)
     valid = coordinates.all? do |coordinate|
-      return false if @cells[coordinate].ship != nil
-      valid_coordinate?(coordinate)
+      if @cells[coordinate].ship != nil
+        "Invalid"
+      elsif
+        valid_coordinate?(coordinate)
+      end
     end
+require "pry"; binding.pry
+    if valid && ship.length == coordinates.length
+      valid_columns?(coordinates) || valid_rows?(coordinates)
 
-    valid && ship.length == coordinates.length
+    else
+      false
+    end
   end
 
   def place(ship, coordinates)
@@ -69,6 +77,7 @@ class Board
   end
 
   def render(show = false)
+    # require "pry"; binding.pry
     "  1 2 3 4 \n\
 A #{@cells['A1'].render(show)} #{@cells['A2'].render(show)} #{@cells['A3'].render(show)} #{@cells['A4'].render(show)} \n\
 B #{@cells['B1'].render(show)} #{@cells['B2'].render(show)} #{@cells['B3'].render(show)} #{@cells['B4'].render(show)} \n\
