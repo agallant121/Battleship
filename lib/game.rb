@@ -35,15 +35,7 @@ class Game
     loop do
       input = gets.chomp
       if input == "p"
-        puts @player_board.render(show = true)
-          puts "Enter the 3 coordinates for cruiser:"
-            coord_input = gets.chomp
-            coord_input = coord_input.split
-# require "pry"; binding.pry
-          if @player_board.valid_placement?(@cruiser, coord_input)
-            @player_board.place(@cruiser, coord_input)
-            break
-          end
+        start_game
       elsif
         input == "q"
         puts "You are the weakest link, goodbye."
@@ -54,7 +46,29 @@ class Game
     end
   end
 
+  def start_game
+    puts @player_board.render(show = true)
+    puts ""
+    puts "Please choose coordinates using letters and"
+    puts "numbers with spaces in between each coordinate. Once you"
+    puts "have chosen 3 coordinates for the cruiser, (ex. A1 A2 A3),"
+    puts "press enter and repeat these steps for placing the submarine.
+    "
+    puts "Please enter the 3 coordinates for cruiser:"
+          coord_input = gets.chomp.upcase
+          coord_input = coord_input.split
+        if @player_board.valid_placement?(@cruiser, coord_input)
+           @player_board.place(@cruiser, coord_input)
+            puts "Now, please enter the 2 coordinates for submarine:"
+              coord_input = gets.chomp.upcase
+              coord_input = coord_input.split
+            if @player_board.valid_placement?(@submarine, coord_input)
+               @player_board.place(@submarine, coord_input)
+            end
+        end
+  end
 end
+
 
 # loop do
   @game = Game.new(@player_board, @computer_board)
