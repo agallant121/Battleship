@@ -63,31 +63,26 @@ class Game
         break
       else
         puts "Invalid entry. Please choose p or q."
+        # do we need user input here
       end
     end
   end
 
+  # def generate_random_ship_placement
+  #   @computer_board.ship_gen(@cruiser)
+  #   # require "pry"; binding.pry
+  # end
+
+
   def start_game
-    # x = @computer_board.cells.keys.sample(3)
-    #
+    @computer_board.ship_gen(@cruiser)
+
     #   x.map do |coord|
-    #     coord
+    #
     #     if @computer_board.valid_placement?(@cruiser, x)
     #       @computer_board.place(@cruiser, x)
     #     end
     # end
-
-
-    y = @computer_board.cells.keys.sample(2)
-
-    loop do
-      y until @computer_board.valid_placement?(@submarine, y)
-      # require "pry"; binding.pry
-      break
-    end
-
-    @computer_board.place(@submarine, y)
-
 
     puts @player_board.render(show = true)
     puts ""
@@ -98,34 +93,54 @@ class Game
     "
 
     puts "Please enter the 3 coordinates for cruiser:"
-          coord_input = gets.chomp.upcase
-          coord_input = coord_input.split
-        if @player_board.valid_placement?(@cruiser, coord_input)
-           @player_board.place(@cruiser, coord_input)
-            puts "Now, please enter the 2 coordinates for submarine:"
-              coord_input = gets.chomp.upcase
-              coord_input = coord_input.split
+    coord_input = gets.chomp.upcase
+    coord_input_cruiser = coord_input.split
+    while @player_board.valid_placement?(@cruiser, coord_input_cruiser) == false
+      puts "Please enter coordinates in a valid arrangement:"
+      coord_input = gets.chomp.upcase
+      coord_input_cruiser = coord_input.split
+    end
 
-            if @player_board.valid_placement?(@submarine, coord_input)
-               @player_board.place(@submarine, coord_input)
+    if @player_board.valid_placement?(@cruiser, coord_input_cruiser)
+       @player_board.place(@cruiser, coord_input_cruiser)
+       puts "Now, please enter the 2 coordinates for submarine:"
+       coord_input = gets.chomp.upcase
+       coord_input_sub = coord_input.split
+       while @player_board.valid_placement?(@submarine, coord_input_sub) == false
+         puts "Please enter coordinates in a valid arrangement:"
+         coord_input = gets.chomp.upcase
+         coord_input_sub = coord_input.split
+       end
+       if @player_board.valid_placement?(@submarine, coord_input_sub)
+         @player_board.place(@submarine, coord_input_sub)
+       end
+    end
 
-               puts "Nice placement; or was it?!"
-               puts ""
-               puts "======= Computer Board ========"
-               puts ""
-               puts @computer_board.render(show = false)#true to show ships
-               puts ""
-               puts "======== Player Board ========="
-               puts ""
-               puts @player_board.render(show = true)
-               puts ""
-               puts "=============================="
-            end
-        end
-      end
+
+
+    # if @player_board.valid_placement?(@submarine, coord_input)
+    #    @player_board.place(@submarine, coord_input)
+    # end
+
+    puts "Nice placement; or was it?!"
+    puts ""
+    puts "======= Computer Board ========"
+    puts ""
+    puts @computer_board.render(show = true)#true to show ships
+    puts ""
+    puts "======== Player Board ========="
+    puts ""
+    puts @player_board.render(show = true)
+    puts ""
+    puts "=============================="
+
+  end
 end
 
 
-# loop do
-  @game = Game.new(@player_board, @computer_board)
-  @game.main_menu
+
+
+
+
+@game = Game.new(@player_board, @computer_board)
+@game.main_menu

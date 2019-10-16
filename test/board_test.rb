@@ -126,4 +126,10 @@ class BoardTest < Minitest::Test
     assert_equal expected, @board.render(true)
   end
 
+  # def test_it_can_generate_random_ships
+  #   @board.place(@cruiser, @board.cells.keys.sample(@cruiser.length))
+  #   # @board.place(@submarine, ["B1", "B2"])
+  #
+  #   assert_equal @board.cells.keys.sample(@cruiser.length), @board.ship_gen(@cruiser, @board.cells.keys.sample(@cruiser.length))
+  # end
 end

@@ -52,15 +52,16 @@ class Board
   def valid_placement?(ship, coordinates)
     valid = coordinates.all? do |coordinate|
       if @cells[coordinate].ship != nil
-        "Invalid"
-      elsif
+        false
+      else
         valid_coordinate?(coordinate)
       end
     end
-require "pry"; binding.pry
+
+
     if valid && ship.length == coordinates.length
       valid_columns?(coordinates) || valid_rows?(coordinates)
-
+      # require "pry"; binding.pry
     else
       false
     end
@@ -72,7 +73,7 @@ require "pry"; binding.pry
         @cells[coordinate].place_ship(ship)
       end
     else
-      "Sorry Invalid Placement"
+      false
     end
   end
 
@@ -85,6 +86,27 @@ C #{@cells['C1'].render(show)} #{@cells['C2'].render(show)} #{@cells['C3'].rende
 D #{@cells['D1'].render(show)} #{@cells['D2'].render(show)} #{@cells['D3'].render(show)} #{@cells['D4'].render(show)} \n"
 
 
+  end
+
+  def ship_gen(ship)
+    x = @cells.keys.sample(ship.length)
+    # require "pry"; binding.pry
+
+
+    # until valid_placement(ship, x)
+    #   x = @cells.keys.sample(ship.length)
+    # end
+    #
+    # place_ship(ship, x)
+    loop do
+      while valid_placement?(ship, x) == false
+        x = @cells.keys.sample(ship.length)
+      if valid_placement?(ship, x)
+        place_ship(ship, x)
+        break
+      end
+      end
+    end
   end
 
 end
