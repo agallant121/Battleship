@@ -27,6 +27,8 @@ class BoardTest < Minitest::Test
     @board = Board.new(@cells)
     @cruiser = Ship.new("Cruiser", 3)
     @submarine = Ship.new("Submarine", 2)
+    @player_board = Board.new(@cells)
+    @computer_board = Board.new(@cells)
   end
 
   def test_it_exists
@@ -62,11 +64,9 @@ class BoardTest < Minitest::Test
     assert_equal false, @board.same_numbers?(["A1", "A2", "A4"])
   end
 
-#code not real yet
   def test_numbers_are_consecutive
     assert_equal true, @board.consecutive_numbers_forward?(["A1", "A2", "A3"])
     assert_equal false, @board.consecutive_numbers_forward?(["A1", "A5", "A3"])
-
   end
 
   def test_letters_are_consecutive
@@ -96,6 +96,7 @@ class BoardTest < Minitest::Test
     cell_1 = @board.cells["A1"]
     cell_2 = @board.cells["A2"]
     cell_3 = @board.cells["A3"]
+
     assert_equal cell_1, @board.cells["A1"]
     assert_equal cell_2, @board.cells["A2"]
     assert_equal cell_3, @board.cells["A3"]
@@ -107,21 +108,28 @@ class BoardTest < Minitest::Test
 
   def test_ships_cannot_overlap
     @board.place(@cruiser, ["A1", "A2", "A3"])
+
     assert_equal false, @board.valid_placement?(@submarine, ["A1", "B1"])
   end
 
   def test_it_can_render_dots
     @board.place(@cruiser, ["A1", "A2", "A3"])
-    expected = "1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n"
-    
+    expected = "  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n"
+
     assert_equal expected, @board.render
   end
 
   def test_it_can_render_ships
     @board.place(@cruiser, ["A1", "A2", "A3"])
-    expected = "1 2 3 4 \nA S S S . \nB . . . . \nC . . . . \nD . . . . \n"
+    expected = "  1 2 3 4 \nA S S S . \nB . . . . \nC . . . . \nD . . . . \n"
 
     assert_equal expected, @board.render(true)
   end
 
+  # def test_it_can_generate_random_ships
+  #   @board.place(@cruiser, @board.cells.keys.sample(@cruiser.length))
+  #   # @board.place(@submarine, ["B1", "B2"])
+  #
+  #   assert_equal @board.cells.keys.sample(@cruiser.length), @board.ship_gen(@cruiser, @board.cells.keys.sample(@cruiser.length))
+  # end
 end
