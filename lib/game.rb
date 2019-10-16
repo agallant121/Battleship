@@ -53,6 +53,7 @@ class Game
   def main_menu
     puts "Welcome to BATTLESHIP"
     puts "Enter p to play. Enter q to quit."
+
     loop do
       input = gets.chomp
       if input == "p"
@@ -76,6 +77,7 @@ class Game
 
   def start_game
     @computer_board.ship_gen(@cruiser)
+    @computer_board.ship_gen(@submarine)
 
     #   x.map do |coord|
     #
@@ -83,7 +85,6 @@ class Game
     #       @computer_board.place(@cruiser, x)
     #     end
     # end
-
     puts @player_board.render(show = true)
     puts ""
     puts "Please choose coordinates using letters and"

@@ -92,21 +92,11 @@ D #{@cells['D1'].render(show)} #{@cells['D2'].render(show)} #{@cells['D3'].rende
     x = @cells.keys.sample(ship.length)
     # require "pry"; binding.pry
 
-
-    # until valid_placement(ship, x)
-    #   x = @cells.keys.sample(ship.length)
-    # end
-    #
-    # place_ship(ship, x)
-    loop do
-      while valid_placement?(ship, x) == false
-        x = @cells.keys.sample(ship.length)
-      if valid_placement?(ship, x)
-        place_ship(ship, x)
-        break
-      end
-      end
+    until valid_placement?(ship, x)
+      x = @cells.keys.sample(ship.length)
     end
+
+    place(ship, x)
   end
 
 end
