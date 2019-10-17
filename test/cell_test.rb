@@ -38,7 +38,7 @@ class CellTest < Minitest::Test
     assert_equal false, @cell_1.shot_at?
     @cell_1.fire_upon
     assert_equal 2, @cell_1.ship.health
-    assert_equal true, @cell_1.shot_at? #not done
+    assert_equal true, @cell_1.shot_at?
   end
 
   def test_it_can_render_not_fired_upon
@@ -82,5 +82,4 @@ class CellTest < Minitest::Test
     @cruiser.hit
     assert_equal "X", @cell_2.render
   end
-
 end

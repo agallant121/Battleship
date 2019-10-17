@@ -6,7 +6,6 @@ class Board
   end
 
   def valid_coordinate?(coordinate)
-    # is coordinate contained within hash?
     @cells.include?(coordinate)
   end
 
@@ -33,12 +32,12 @@ class Board
   end
 
   def consecutive_letters_forward?(coordinates)
-      letters = coordinates.map do |coordinate|
-        coordinate[0].ord
-      end
-      letters.each_cons(2).all? do |lett1, lett2|
-        lett2 == lett1 + 1
-      end
+    letters = coordinates.map do |coordinate|
+      coordinate[0].ord
+    end
+    letters.each_cons(2).all? do |lett1, lett2|
+      lett2 == lett1 + 1
+    end
   end
 
   def valid_columns?(coordinates)
@@ -61,7 +60,6 @@ class Board
 
     if valid && ship.length == coordinates.length
       valid_columns?(coordinates) || valid_rows?(coordinates)
-      # require "pry"; binding.pry
     else
       false
     end
@@ -78,25 +76,11 @@ class Board
   end
 
   def render(show = false)
-    # require "pry"; binding.pry
     "  1 2 3 4 \n\
 A #{@cells['A1'].render(show)} #{@cells['A2'].render(show)} #{@cells['A3'].render(show)} #{@cells['A4'].render(show)} \n\
 B #{@cells['B1'].render(show)} #{@cells['B2'].render(show)} #{@cells['B3'].render(show)} #{@cells['B4'].render(show)} \n\
 C #{@cells['C1'].render(show)} #{@cells['C2'].render(show)} #{@cells['C3'].render(show)} #{@cells['C4'].render(show)} \n\
 D #{@cells['D1'].render(show)} #{@cells['D2'].render(show)} #{@cells['D3'].render(show)} #{@cells['D4'].render(show)} \n"
 
-
   end
-
-  def ship_gen(ship)
-    x = @cells.keys.sample(ship.length)
-    # require "pry"; binding.pry
-
-    until valid_placement?(ship, x)
-      x = @cells.keys.sample(ship.length)
-    end
-
-    place(ship, x)
-  end
-
 end

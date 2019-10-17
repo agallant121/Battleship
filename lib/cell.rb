@@ -21,15 +21,14 @@ class Cell
   end
 
   def fire_upon
-    # return if @fired_upon #checking if it has been fired upon
     @fired_upon = true
     if !empty?
       @ship.hit
     end
   end
 
-  def render(show = false) # default gets rid of errors above in test
-    if  shot_at? && !@ship
+  def render(show = false)
+    if shot_at? && !@ship
       "M"
     elsif shot_at? && @ship.sunk?
       "X"
