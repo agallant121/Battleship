@@ -29,7 +29,7 @@ class ShipTest < Minitest::Test
     @cruiser.hit
     assert_equal 0, @cruiser.health
     @cruiser.hit
-    assert_equal 0, @cruiser.health #stays at 0 health, not below.
+    assert_equal 0, @cruiser.health 
     assert_equal true, @cruiser.sunk?
 
   end

@@ -56,7 +56,7 @@ class BoardTest < Minitest::Test
 
   def test_all_letters_are_the_same
     assert_equal true, @board.same_letters?(["A1", "A2", "A4"])
-    assert_equal false, @board.same_letters?(["B1", "A2", "C4"]) #sad path
+    assert_equal false, @board.same_letters?(["B1", "A2", "C4"])
   end
 
   def test_all_numbers_are_the_same
@@ -125,11 +125,4 @@ class BoardTest < Minitest::Test
 
     assert_equal expected, @board.render(true)
   end
-
-  # def test_it_can_generate_random_ships
-  #   @board.place(@cruiser, @board.cells.keys.sample(@cruiser.length))
-  #   # @board.place(@submarine, ["B1", "B2"])
-  #
-  #   assert_equal @board.cells.keys.sample(@cruiser.length), @board.ship_gen(@cruiser, @board.cells.keys.sample(@cruiser.length))
-  # end
 end
